@@ -88,8 +88,11 @@ public:
 
   /// Wrap executor::spin into rttest_spin.
   // Do all the work available to the executor for as many iterations specified by rttest.
-  void spin()
+  void spin(std::chrono::nanoseconds timeout = std::chrono::nanoseconds{-1})
   {
+    // Currently timeout is not supported.
+    (void)timeout;
+
     // This call will block until rttest is finished, calling loop_callback at periodic intervals
     // specified on the command line.
     rttest_spin(RttExecutor::loop_callback, static_cast<void *>(this));
